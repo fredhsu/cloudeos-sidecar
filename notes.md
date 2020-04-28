@@ -1,5 +1,8 @@
-[aaronb@accra ~]$ curl localhost:6060/rest/Eos/TerminAttr/connection
-```
+# Implmentation notes
+
+`[aaronb@accra ~]$ curl localhost:6060/rest/Eos/TerminAttr/connection`
+
+```json
 {
     "alpha-cvp1.sjc.aristanetworks.com:9910": {
         "_ptr": "/Eos/TerminAttr/connection/alpha-cvp1.sjc.aristanetworks.com:9910"
@@ -16,11 +19,10 @@
 }
 ```
 
-
 You can learn more about each connection if you append the URL/IP to the path:
 [aaronb@accra ~]$ curl localhost:6060/rest/Eos/TerminAttr/connection/alpha-cvp1.sjc.aristanetworks.com:9910
 
-```
+```json
 {
     "Cluster": "alpha",
     "SourceAddress": "172.20.253.81:59092",
