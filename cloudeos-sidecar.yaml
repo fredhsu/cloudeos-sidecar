@@ -1,0 +1,17 @@
+- image: fredhsu/cloudeos-sidecar:0.1
+  name: cloudeos-sidecar
+  command: ["/main"]
+  stdin: true
+  tty: true
+  imagePullPolicy: always
+  env:
+    - name: CLOUDEOS_POD_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    - name: CLOUDEOS_POD_NAMESPACE
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.namespace
+  securityContext:
+    privileged: true
