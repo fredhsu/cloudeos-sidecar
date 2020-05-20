@@ -3,7 +3,7 @@
   command: ["/main"]
   stdin: true
   tty: true
-  imagePullPolicy: always
+  imagePullPolicy: Always
   env:
     - name: CLOUDEOS_POD_NAME
       valueFrom:

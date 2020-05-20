@@ -42,13 +42,17 @@ func main() {
 			log.Printf("key %s value %+v \n", key, value)
 			if strings.HasSuffix(key, ":9910") {
 				cvURL = "https://" + strings.TrimSuffix(key, ":9910")
-				log.Printf("Cloudvision located at : %s", cvURL)
+				log.Printf("CloudVision located at : %s\n", cvURL)
 			}
 		}
 
 		podName := os.Getenv("CLOUDEOS_POD_NAME")
 		podNamespace := os.Getenv("CLOUDEOS_POD_NAMESPACE")
 		pod, err := clientset.CoreV1().Pods(podNamespace).Get(context.TODO(), podName, metav1.GetOptions{})
+		if err != nil {
+			log.Println(err)
+		}
+		log.Printf("Annotating pod %s in namespace %s with CloudVision URL: %s\n", podName, podNamespace, cvURL)
 		pod.SetAnnotations(map[string]string{
 			"CloudVisionURL": cvURL,
 		})
