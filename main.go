@@ -26,6 +26,7 @@ func main() {
 		panic(err.Error())
 	}
 	//TODO Add http server to provide API to data gathered
+	// TODO Add option for redefining the url
 	for {
 		url := "http://localhost:6060/rest/Eos/TerminAttr/connection"
 		resp, err := http.Get(url)
@@ -52,16 +53,17 @@ func main() {
 		if err != nil {
 			log.Println(err)
 		}
-		log.Printf("Current pod: %+v", pod)
+		log.Printf("Current pod annotations: %+v\n", pod.Annotations)
 		log.Printf("Annotating pod %s in namespace %s with CloudVision URL: %s\n", podName, podNamespace, cvURL)
 		pod.SetAnnotations(map[string]string{
-			"CloudVisionURL": cvURL,
+			"arista/cloudvisionurl": cvURL,
 		})
 		pod, err = clientset.CoreV1().Pods(podNamespace).Update(context.TODO(), pod, metav1.UpdateOptions{})
 		if err != nil {
 			log.Println(err)
+		} else {
+			log.Printf("Pod updated with annotations: %+v\n", pod.Annotations)
 		}
-		log.Printf("Pod updated: %+v", pod)
 		time.Sleep(300 * time.Second)
 	}
 
