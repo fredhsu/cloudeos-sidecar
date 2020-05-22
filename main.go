@@ -52,11 +52,16 @@ func main() {
 		if err != nil {
 			log.Println(err)
 		}
+		log.Printf("Current pod: %+v", pod)
 		log.Printf("Annotating pod %s in namespace %s with CloudVision URL: %s\n", podName, podNamespace, cvURL)
 		pod.SetAnnotations(map[string]string{
 			"CloudVisionURL": cvURL,
 		})
-		clientset.CoreV1().Pods(podNamespace).Update(context.TODO(), pod, metav1.UpdateOptions{})
+		pod, err = clientset.CoreV1().Pods(podNamespace).Update(context.TODO(), pod, metav1.UpdateOptions{})
+		if err != nil {
+			log.Println(err)
+		}
+		log.Printf("Pod updated: %+v", pod)
 		time.Sleep(300 * time.Second)
 	}
 
