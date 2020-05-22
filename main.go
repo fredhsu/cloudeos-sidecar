@@ -56,7 +56,7 @@ func main() {
 		pod.SetAnnotations(map[string]string{
 			"CloudVisionURL": cvURL,
 		})
-		clientset.CoreV1().Pods("").Update(context.TODO(), pod, metav1.UpdateOptions{})
+		clientset.CoreV1().Pods(podNamespace).Update(context.TODO(), pod, metav1.UpdateOptions{})
 		time.Sleep(300 * time.Second)
 	}
 
