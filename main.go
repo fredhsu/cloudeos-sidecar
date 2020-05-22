@@ -49,6 +49,13 @@ func main() {
 
 		podName := os.Getenv("CLOUDEOS_POD_NAME")
 		podNamespace := os.Getenv("CLOUDEOS_POD_NAMESPACE")
+
+		if podName == "" {
+			log.Println("CLOUDEOS_POD_NAME not set")
+		}
+		if podNamespace == "" {
+			log.Println("CLOUDEOS_POD_NAMESPACE not set")
+		}
 		pod, err := clientset.CoreV1().Pods(podNamespace).Get(context.TODO(), podName, metav1.GetOptions{})
 		if err != nil {
 			log.Println(err)
